@@ -3,6 +3,11 @@ name: Scala CI
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE.md'
+      - '.gitignore'
+      - '.idea/**'
   pull_request:
     branches: [ master ]
 
