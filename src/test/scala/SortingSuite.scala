@@ -10,6 +10,6 @@ class SortingSuite extends AnyFunSuite {
   }
 
   test("insertionSortFunctional") {
-    assert(sortedNums sameElements insertionSortFunctional(numbers.toList))
+    assert(sortedNums sameElements insertionSortFunctional(numbers.toSeq))
   }
 }
