@@ -71,7 +71,7 @@ object Sorting {
   def mergeSort(arr: Array[Int]): Array[Int] = {
     def merge(a: Array[Int], low: Int, mid: Int, high: Int): Unit = {
       val n = high - low + 1
-      val sortedArr = Array.fill(n)(0)    // note to self: Array(5) in scala produces [5], not [a_1, ..., a_5]
+      val sortedArr = Array.fill(n)(0)    // note to self: Array(5) in scala produces [5], not [a_0, ..., a_4]
 
       // 1. add minimum of left and right heads to temp array
       // represent left and right sub arrays as indices of parent array
