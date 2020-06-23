@@ -24,4 +24,12 @@ class SortingSuite extends AnyFunSuite {
   test("selectionSortFunctional") {
     assert(sortedNums sameElements selectionSortFunctional(numbers.toList))
   }
+
+  ignore("mergeSort") {
+    assert(sortedNums sameElements mergeSort(numbers))
+  }
+
+  test("mergeSortFunctional") {
+    assert(sortedNums sameElements mergeSortFunctional(numbers.toList))
+  }
 }

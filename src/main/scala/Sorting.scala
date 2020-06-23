@@ -51,10 +51,8 @@ object Sorting {
   def selectionSortFunctional(a: List[Int]): List[Int] = {
     def findMaximum(xs: List[Int]): List[Int] = {
       xs.tail.foldLeft(List(xs.head)) { case (acc, elem) =>
-        if (elem > acc.head)
-          elem :: acc
-        else
-          acc.head :: elem :: acc.tail
+        if (elem > acc.head)  elem :: acc
+        else                  acc.head :: elem :: acc.tail
       }
     }
 
@@ -68,5 +66,26 @@ object Sorting {
     }
 
     iter(a, Nil)
+  }
+
+  def mergeSort(arr: Array[Int]): Array[Int] = ???
+
+  def mergeSortFunctional(a: List[Int]): List[Int] = {
+    @tailrec
+    def merge(left: List[Int], right: List[Int], acc: List[Int]): List[Int] = (left, right) match {
+      case (Nil, _) => acc ++ right
+      case (_, Nil) => acc ++ left
+      case (x :: xs, y :: ys) =>
+        if (x < y)  merge(xs, right, acc :+ x)
+        else        merge(left, ys, acc :+ y)
+    }
+
+    a match {
+      case Nil => Nil
+      case xs :: Nil => List(xs)
+      case _ =>
+        val (left, right) = a splitAt a.length/2
+        merge(mergeSortFunctional(left), mergeSortFunctional(right), List.empty[Int])
+    }
   }
 }
