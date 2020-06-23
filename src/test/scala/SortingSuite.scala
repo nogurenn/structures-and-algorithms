@@ -16,4 +16,12 @@ class SortingSuite extends AnyFunSuite {
   test("insertionSortFunctional") {
     assert(sortedNums sameElements insertionSortFunctional(numbers.toList))
   }
+
+  test("selectionSort") {
+    assert(sortedNums sameElements selectionSort(numbers.clone))
+  }
+
+  test("selectionSortFunctional") {
+    assert(sortedNums sameElements selectionSortFunctional(numbers.toList))
+  }
 }

@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object Sorting {
 
   def insertionSort(a: Array[Int]): Array[Int] = {
@@ -26,5 +28,43 @@ object Sorting {
     a.foldLeft(List.empty[T]) {
       case (acc, elem) => insert(elem, acc)
     }
+  }
+  
+  def selectionSort(a: Array[Int]): Array[Int] = {
+    val n = a.length
+    for (pos <- 0 until n-1) {
+      var smallest = pos
+      for (i <- pos+1 until n) {
+        if (a(i) < a(smallest))
+          smallest = i
+      }
+      // save first elem and perform swap
+      val firstElem = a(pos)
+      a(pos) = a(smallest)
+      a(smallest) = firstElem
+    }
+    a
+  }
+
+  def selectionSortFunctional(a: List[Int]): List[Int] = {
+    def findMaximum(xs: List[Int]): List[Int] = {
+      xs.tail.foldLeft(List(xs.head)) { case (acc, elem) =>
+        if (elem > acc.head)
+          elem :: acc
+        else
+          acc.head :: elem :: acc.tail
+      }
+    }
+
+    @tailrec
+    def iter(xs: List[Int], acc: List[Int]): List[Int] = {
+      if (xs.isEmpty) acc
+      else {
+        val partiallySorted = findMaximum(xs)
+        iter(partiallySorted.tail, partiallySorted.head :: acc)
+      }
+    }
+
+    iter(a, Nil)
   }
 }
