@@ -1,4 +1,4 @@
-# Data Structures and Algorithms
+# Data Structures and Algorithms in Scala
 
 ![Scala CI](https://github.com/nogurenn/structures-and-algorithms/workflows/Scala%20CI/badge.svg)
 
