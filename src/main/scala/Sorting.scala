@@ -15,13 +15,16 @@ object Sorting {
     a
   }
 
-  def insertionSortFunctional[T](a: Seq[T])(implicit ord: Ordering[T]): Seq[T] = {
-    def insert(x: T, xs: Seq[T]): Seq[T] =
-      // insert element to the left of a number that's bigger than x
-      if (xs.isEmpty || ord.lteq(x, xs.head)) x +: xs
-      else xs.head +: insert(x, xs.tail)
+  // https://stackoverflow.com/a/18847665/1983337
+  // very interesting. copy pasta for reference
+  def insertionSortFunctional[T](a: List[T])(implicit ord: Ordering[T]): List[T] = {
+    def insert(x: T, xs: List[T]): List[T] = {
+      val (l, r) = xs.span(ord.lt(_, x))
+      l ::: (x :: r)
+    }
 
-    if (a.isEmpty) Nil
-    else insert(a.head, insertionSortFunctional(a.tail))
+    a.foldLeft(List.empty[T]) {
+      case (acc, elem) => insert(elem, acc)
+    }
   }
 }
