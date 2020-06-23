@@ -1,15 +1,19 @@
 import org.scalatest.funsuite.AnyFunSuite
 import Sorting._
 
+import scala.util.Random
+
 class SortingSuite extends AnyFunSuite {
-  private val numbers = Array(5, 3, 1, 6, 2)
-  private val sortedNums = Array(1, 2, 3, 5, 6)
+  // generate array of n length with random values [0, 1000)
+  private val n = 50000
+  private val numbers = Array.fill(n)(Random.nextInt(1000))
+  private val sortedNums = numbers.sorted
 
   test("insertionSort") {
     assert(sortedNums sameElements insertionSort(numbers.clone))
   }
 
   test("insertionSortFunctional") {
-    assert(sortedNums sameElements insertionSortFunctional(numbers.toSeq))
+    assert(sortedNums sameElements insertionSortFunctional(numbers.toList))
   }
 }
