@@ -4,9 +4,9 @@ import Sorting._
 import scala.util.Random
 
 class SortingSuite extends AnyFunSuite {
-  // generate array of n length with random values [0, 1000)
+  // generate array of n length with random values [0, Int.MaxValue)
   private val n = 50000
-  private val numbers = Array.fill(n)(Random.nextInt(1000))
+  private val numbers = Array.fill(n)(Random.nextInt(Int.MaxValue))
   private val sortedNums = numbers.sorted
 
   test("insertionSort") {
@@ -25,7 +25,7 @@ class SortingSuite extends AnyFunSuite {
     assert(sortedNums sameElements selectionSortFunctional(numbers.toList))
   }
 
-  ignore("mergeSort") {
+  test("mergeSort") {
     assert(sortedNums sameElements mergeSort(numbers))
   }
 

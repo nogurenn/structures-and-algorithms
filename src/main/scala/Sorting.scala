@@ -68,7 +68,53 @@ object Sorting {
     iter(a, Nil)
   }
 
-  def mergeSort(arr: Array[Int]): Array[Int] = ???
+  def mergeSort(arr: Array[Int]): Array[Int] = {
+    def merge(a: Array[Int], low: Int, mid: Int, high: Int): Unit = {
+      val n = high - low + 1
+      val sortedArr = Array.fill(n)(0)    // note to self: Array(5) in scala produces [5], not [a_1, ..., a_5]
+
+      // 1. add minimum of left and right heads to temp array
+      // represent left and right sub arrays as indices of parent array
+      var (left, right, k) = (low, mid + 1, 0)
+      while (left <= mid && right <= high) {
+        if (a(left) <= a(right)) {
+          sortedArr(k) = a(left)
+          left += 1
+        } else {
+          sortedArr(k) = a(right)
+          right += 1
+        }
+        k += 1
+      }
+
+      // 2. concat remaining left if right ran out first
+      for (i <- left to mid) {
+        sortedArr(k) = a(i)
+        k += 1
+      }
+
+      // 3. concat remaining right if left ran out first
+      for (j <- right to high) {
+        sortedArr(k) = a(j)
+        k += 1
+      }
+
+      sortedArr.copyToArray(a, low)
+    }
+
+    def iter(a: Array[Int], low: Int, high: Int): Unit = {
+      if (low < high) {
+        val mid = (low + high) / 2
+        iter(a, low, mid)
+        iter(a, mid + 1, high)
+        merge(a, low, mid, high)
+      }
+    }
+
+    val a = arr.clone
+    iter(a, 0, a.length-1)
+    a
+  }
 
   def mergeSortFunctional(a: List[Int]): List[Int] = {
     @tailrec
