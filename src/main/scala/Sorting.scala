@@ -2,7 +2,8 @@ import scala.annotation.tailrec
 
 object Sorting {
 
-  def insertionSort(a: Array[Int]): Array[Int] = {
+  def insertionSort(arr: Array[Int]): Array[Int] = {
+    val a = arr.clone
     for (n <- 1 until a.length) {
       val elem = a(n)
       // compare elem against a(n-1) with backward steps
@@ -29,8 +30,9 @@ object Sorting {
       case (acc, elem) => insert(elem, acc)
     }
   }
-  
-  def selectionSort(a: Array[Int]): Array[Int] = {
+
+  def selectionSort(arr: Array[Int]): Array[Int] = {
+    val a = arr.clone
     val n = a.length
     for (pos <- 0 until n-1) {
       var smallest = pos

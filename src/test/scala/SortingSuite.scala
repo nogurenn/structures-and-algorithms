@@ -10,7 +10,7 @@ class SortingSuite extends AnyFunSuite {
   private val sortedNums = numbers.sorted
 
   test("insertionSort") {
-    assert(sortedNums sameElements insertionSort(numbers.clone))
+    assert(sortedNums sameElements insertionSort(numbers))
   }
 
   test("insertionSortFunctional") {
@@ -18,7 +18,7 @@ class SortingSuite extends AnyFunSuite {
   }
 
   test("selectionSort") {
-    assert(sortedNums sameElements selectionSort(numbers.clone))
+    assert(sortedNums sameElements selectionSort(numbers))
   }
 
   test("selectionSortFunctional") {
