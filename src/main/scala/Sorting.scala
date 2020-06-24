@@ -2,6 +2,36 @@ import scala.annotation.tailrec
 
 object Sorting {
 
+  def bubbleSort(arr: Array[Int]): Array[Int] = {
+    val a = arr.clone
+
+    for (i <- a.indices) {
+      for (j <- (a.length-1) to (i+1) by -1) {
+        if (a(j) < a(j-1)) {
+          val temp = a(j)
+          a(j) = a(j-1)
+          a(j-1) = temp
+        }
+      }
+    }
+
+    a
+  }
+
+  def bubbleSortFunctional(a: List[Int]): List[Int] = {
+    @tailrec
+    def iter(iteration: List[Int], xs: List[Int], acc: List[Int]): List[Int] = xs match {
+      case Nil if iteration.isEmpty => acc
+      case Nil =>                      iter(iteration dropRight 1, acc, Nil)
+      case x :: Nil =>                 iter(iteration, Nil, acc :+ x)
+      case h1 :: h2 :: tail =>
+                          if (h1 > h2) iter(iteration, h1 :: tail, acc :+ h2)
+                                  else iter(iteration, h2 :: tail, acc :+ h1)
+    }
+
+    iter(a, a, Nil)
+  }
+
   def insertionSort(arr: Array[Int]): Array[Int] = {
     val a = arr.clone
     for (n <- 1 until a.length) {

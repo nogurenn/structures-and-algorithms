@@ -9,6 +9,17 @@ class SortingSuite extends AnyFunSuite {
   private val numbers = Array.fill(n)(Random.nextInt(Int.MaxValue))
   private val sortedNums = numbers.sorted
 
+  test("bubbleSort") {
+    assert(sortedNums sameElements bubbleSort(numbers))
+  }
+
+  test("bubbleSortFunctional") {
+    assert(Array(1,2,3,5,6) sameElements bubbleSortFunctional(List(5,3,1,6,2)))
+    // DON'T DO IT at n = 50000
+    // YOU HAVE BEEN WARNED
+    // assert(sortedNums sameElements bubbleSortFunctional(numbers.toList))
+  }
+
   test("insertionSort") {
     assert(sortedNums sameElements insertionSort(numbers))
   }
