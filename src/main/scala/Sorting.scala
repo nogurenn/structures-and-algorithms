@@ -134,7 +134,7 @@ object Sorting {
 
     def iter(a: Array[Int], low: Int, high: Int): Unit = {
       if (low < high) {
-        val mid = (low + high) / 2
+        val mid = low + (high - low) / 2
         iter(a, low, mid)
         iter(a, mid + 1, high)
         merge(a, low, mid, high)
