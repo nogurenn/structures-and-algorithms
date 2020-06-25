@@ -1,12 +1,8 @@
 import org.scalatest.funsuite.AnyFunSuite
 import Sorting._
 
-import scala.util.Random
-
-class SortingSuite extends AnyFunSuite {
-  // generate array of n length with random values [0, Int.MaxValue)
-  private val n = 50000
-  private val numbers = Array.fill(n)(Random.nextInt(Int.MaxValue))
+class SortingSuite extends AnyFunSuite with Utils {
+  private val numbers = generateRandArrayInt()
   private val sortedNums = numbers.sorted
 
   test("bubbleSort") {
