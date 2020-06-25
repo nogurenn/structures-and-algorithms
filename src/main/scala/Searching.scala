@@ -1,4 +1,5 @@
 import scala.annotation.tailrec
+import scala.util.control.Breaks._
 
 object Searching {
 
@@ -26,5 +27,45 @@ object Searching {
     }
 
     iter(a)
+  }
+
+  def binarySearchIter(arr: Array[Int], v: Int): Option[Int] = {
+    // assumes input collection is sorted ascending
+
+    var (low, mid, high) = (0, 0, arr.length-1)
+    var result = -1
+    breakable {
+      while (low <= high) {
+        mid = low + (high - low) / 2
+        if (v == arr(mid))      { result = mid; break }
+        else if (v > arr(mid))  low = mid + 1
+        else                    high = mid - 1
+      }
+    }
+
+    result match {
+      case -1 => None
+      case i => Some(i)
+    }
+  }
+
+  def binarySearchRec(arr: Array[Int], v: Int): Option[Int] = {
+    // assumes input collection is sorted ascending
+
+    // doing a specifically functional version does not make sense
+    // just show recursive version since it's the same
+
+    @tailrec
+    def iter(low: Int, high: Int): Option[Int] = {
+      if (low > high) None
+      else {
+        val mid = low + (high - low) / 2
+        if (v == arr(mid))      Some(mid)
+        else if (v > arr(mid))  iter(mid + 1, high)
+        else                    iter(low, mid - 1)
+      }
+    }
+
+    iter(0, arr.length-1)
   }
 }

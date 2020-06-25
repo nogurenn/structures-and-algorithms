@@ -15,7 +15,16 @@ class SearchingSuite extends AnyFunSuite with Utils {
 
   test("linearSearchFunctional") {
     assert(linearSearch(numbers, numbers.last).isDefined)
-    // since `numbers` consists of nonnegatives, just find a negative number
     assert(linearSearch(numbers, -1).isEmpty)
+  }
+
+  test("binarySearchIter") {
+    assert(binarySearchIter(sortedNums, sortedNums.last).isDefined)
+    assert(binarySearchIter(sortedNums, -1).isEmpty)
+  }
+
+  test("binarySearchRec") {
+    assert(binarySearchRec(sortedNums, sortedNums.last).isDefined)
+    assert(binarySearchRec(sortedNums, -1).isEmpty)
   }
 }
