@@ -3,7 +3,7 @@ import Searching._
 
 class SearchingSuite extends AnyFunSuite with Utils {
 
-  private val numbers = generateRandArrayInt()
+  private val numbers = generateRandArrayInt(5000000)
   private val sortedNums = numbers.sorted
 
   test("linearSearch") {
@@ -26,5 +26,10 @@ class SearchingSuite extends AnyFunSuite with Utils {
   test("binarySearchRec") {
     assert(binarySearchRec(sortedNums, sortedNums.last).isDefined)
     assert(binarySearchRec(sortedNums, -1).isEmpty)
+  }
+
+  test("binarySearchFunctional") {
+    assert(binarySearchFunctional(sortedNums.toList, sortedNums.last).isDefined)
+    assert(binarySearchFunctional(sortedNums.toList, -1).isEmpty)
   }
 }

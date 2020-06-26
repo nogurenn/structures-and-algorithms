@@ -68,4 +68,15 @@ object Searching {
 
     iter(0, arr.length-1)
   }
+
+  // nevermind, I'm doing it!!
+  @tailrec
+  def binarySearchFunctional(a: List[Int], v: Int): Option[Int] = a match {
+    case Nil => None
+    case _ =>
+      val mid = a.length / 2
+      if (v == a(mid)) Some(mid)
+      else if (v > a(mid)) binarySearchFunctional(a drop mid, v)
+      else binarySearchFunctional(a take mid, v)
+  }
 }
