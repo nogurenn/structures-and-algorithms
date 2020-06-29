@@ -3,7 +3,9 @@ import scala.util.control.Breaks._
 
 object Searching {
 
-  def linearSearch(arr: Array[Int], v: Int): Option[Int] = {
+  type Pos = Int
+
+  def linearSearch(arr: Array[Int], v: Int): Option[Pos] = {
     // apply sentinel pattern to reduce comparisons
     val sentinel = v
     val a = arr.clone :+ sentinel
@@ -17,7 +19,7 @@ object Searching {
     else                  None
   }
 
-  def linearSearchFunctional(a: List[Int], v: Int): Option[Int] = {
+  def linearSearchFunctional(a: List[Int], v: Int): Option[Pos] = {
     @tailrec
     def iter(xs: List[Int], index: Int = 0): Option[Int] = xs match {
       case Nil => None
@@ -29,7 +31,7 @@ object Searching {
     iter(a)
   }
 
-  def binarySearchIter(arr: Array[Int], v: Int): Option[Int] = {
+  def binarySearchIter(arr: Array[Int], v: Int): Option[Pos] = {
     // assumes input collection is sorted ascending
 
     var (low, mid, high) = (0, 0, arr.length-1)
@@ -49,7 +51,7 @@ object Searching {
     }
   }
 
-  def binarySearchRec(arr: Array[Int], v: Int): Option[Int] = {
+  def binarySearchRec(arr: Array[Int], v: Int): Option[Pos] = {
     // assumes input collection is sorted ascending
 
     // doing a specifically functional version does not make sense
@@ -71,12 +73,12 @@ object Searching {
 
   // nevermind, I'm doing it!!
   @tailrec
-  def binarySearchFunctional(a: List[Int], v: Int): Option[Int] = a match {
+  def binarySearchFunctional(a: List[Int], v: Int): Option[Pos] = a match {
     case Nil => None
     case _ =>
       val mid = a.length / 2
-      if (v == a(mid)) Some(mid)
-      else if (v > a(mid)) binarySearchFunctional(a drop mid, v)
-      else binarySearchFunctional(a take mid, v)
+      if (v == a(mid))      Some(mid)
+      else if (v > a(mid))  binarySearchFunctional(a drop mid, v)
+      else                  binarySearchFunctional(a take mid, v)
   }
 }
