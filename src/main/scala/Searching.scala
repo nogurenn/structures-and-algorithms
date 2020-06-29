@@ -127,4 +127,29 @@ object Searching {
 
     findMaxSubArray(0, arr.length-1)
   }
+
+  def kadaneMaxSubArraySum(arr: Array[Int]): SubArraySum = {
+    // found Kadane's algorithm while reading about max subarray problem online
+    // use this O(n) algorithm to test max subarray sum above against a large array
+
+    var (maxSoFar, maxEndingHere) = (0, 0)
+    var (low, high, currLow) = (0, 0, 0)
+    for (i <- arr.indices) {
+      maxEndingHere += arr(i)
+
+      if (maxSoFar < maxEndingHere) {
+        maxSoFar = maxEndingHere
+        low = currLow
+        high = i
+      }
+
+      if (maxEndingHere < 0) {
+        maxEndingHere = 0
+        currLow = i + 1
+      }
+    }
+
+    (low, high, maxSoFar)
+  }
+
 }
