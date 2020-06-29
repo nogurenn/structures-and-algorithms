@@ -32,4 +32,10 @@ class SearchingSuite extends AnyFunSuite with Utils {
     assert(binarySearchFunctional(sortedNums.toList, sortedNums.last).isDefined)
     assert(binarySearchFunctional(sortedNums.toList, -1).isEmpty)
   }
+
+  test("maxSubArraySum") {
+    // from the book
+    val arr = Array(13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7)
+    assert((7, 10, 43) == maxSubArraySum(arr))
+  }
 }

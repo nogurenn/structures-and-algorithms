@@ -4,6 +4,7 @@ import scala.util.control.Breaks._
 object Searching {
 
   type Pos = Int
+  type SubArraySum = (Pos, Pos, Int)
 
   def linearSearch(arr: Array[Int], v: Int): Option[Pos] = {
     // apply sentinel pattern to reduce comparisons
@@ -80,5 +81,50 @@ object Searching {
       if (v == a(mid))      Some(mid)
       else if (v > a(mid))  binarySearchFunctional(a drop mid, v)
       else                  binarySearchFunctional(a take mid, v)
+  }
+
+  def maxSubArraySum(arr: Array[Int]): SubArraySum = {
+    // assumes subarray has both positive and negative numbers
+
+    def findMaxCrossingSubArray(low: Pos, mid: Pos, high: Pos): SubArraySum = {
+      var (leftSum, rightSum) = (Int.MinValue, Int.MinValue)    // set to -infinity
+      var (maxLeft, maxRight) = (0, 0)
+
+      var sum = 0
+      for (i <- mid to low by -1) {
+        sum += arr(i)
+        if (sum > leftSum) {
+          leftSum = sum
+          maxLeft = i
+        }
+      }
+
+      sum = 0
+      for (j <- mid + 1 to high) {
+        sum += arr(j)
+        if (sum > rightSum) {
+          rightSum = sum
+          maxRight = j
+        }
+      }
+
+      (maxLeft, maxRight, leftSum + rightSum)
+    }
+
+    def findMaxSubArray(low: Pos, high: Pos): SubArraySum = {
+      if (high == low) (low, high, arr(low))
+      else {
+        val mid = low + (high - low) / 2
+        val (leftLow, leftHigh, leftSum) = findMaxSubArray(low, mid)
+        val (rightLow, rightHigh, rightSum) = findMaxSubArray(mid + 1, high)
+        val (crossLow, crossHigh, crossSum) = findMaxCrossingSubArray(low, mid, high)
+
+        if (leftSum >= rightSum && leftSum >= crossSum)       (leftLow, leftHigh, leftSum)
+        else if (rightSum >= leftSum && rightSum >= crossSum) (rightLow, rightHigh, rightSum)
+        else                                                  (crossLow, crossHigh, crossSum)
+      }
+    }
+
+    findMaxSubArray(0, arr.length-1)
   }
 }
